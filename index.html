@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday 🎂</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- STEP 1: the envelope (click to open) -->
+  <section id="intro" class="intro">
+    <p class="hint">A little something for you… tap the letter 💌</p>
+    <div class="letter-image" id="envelope" role="button" tabindex="0" aria-label="Open your birthday letter">
+      <div class="animated-mail">
+        <div class="back-fold"></div>
+        <div class="letter">
+          <div class="letter-border"></div>
+          <div class="letter-title"></div>
+          <div class="letter-context"></div>
+          <div class="letter-stamp"><div class="letter-stamp-inner"></div></div>
+        </div>
+        <div class="top-fold"></div>
+        <div class="body"></div>
+        <div class="left-fold"></div>
+      </div>
+      <div class="shadow"></div>
+    </div>
+  </section>
+
+  <!-- STEP 2: photos fly out and form a heart (hidden until envelope is clicked) -->
+  <section id="gallery" class="gallery hidden">
+    <h1 class="title">Happy Birthday, <span id="friendName">Nadouddddd</span>! 🎉</h1>
+    <div class="heart" id="heart">
+      <!-- One block per photo. Add or remove blocks freely: the heart re-arranges itself. -->
+      <div class="glass" data-text="Our first Valentine" style="--r:-12;"><img src="images/photo1.jpeg" alt="Memory 1" /></div>
+      <div class="glass" data-text="Our second Iftar in Ramadan" style="--r:6;"><img src="images/photo2.jpeg" alt="Memory 2" /></div>
+      <div class="glass" data-text="Our first birthday celebration" style="--r:-4;"><img src="images/photo3.jpeg" alt="Memory 3" /></div>
+      <div class="glass" data-text="Rehearsal day, when N3m el gahl were freshmen" style="--r:10;"><img src="images/photo4.jpeg" alt="Memory 4" /></div>
+      <div class="glass" data-text="Can't celebrate a milestone without your support" style="--r:5;"><img src="images/photo6.jpeg" alt="Memory 5" /></div>
+      <div class="glass" data-text="Will always be our favourite" style="--r:-10;"><img src="images/photo7.jpeg" alt="Memory 6" /></div>
+      <div class="glass" data-text="El kolya belelll" style="--r:8;"><img src="images/photo8.jpeg" alt="Memory 7" /></div>
+      <div class="glass" data-text="Sora b3d 4 s3at mafesh akhbar 3an farida" style="--r:-6;"><img src="images/photo9.jpeg" alt="Memory 8" /></div>
+      <div class="glass" data-text="Love you ❤️" style="--r:5;"><img src="images/photo12.jpeg" alt="Memory 9" /></div>
+      <div class="glass" data-text="I think she is super proud of what she has reached now" style="--r:-3;"><img src="images/photo13.jpeg" alt="Memory 10" /></div>
+      <div class="glass" data-text="Love Love love" style="--r:7;"><img src="images/photo10.jpeg" alt="Memory 11" /></div>
+      <div class="glass" data-text="I literally wanna cry because I'm proud of who you are" style="--r:9;"><img src="images/photo11.jpeg" alt="Memory 12" /></div>
+    </div>
+    <div class="btn-row">
+      <button class="play-btn" id="msgBtn">💌 Read my message</button>
+      <button class="play-btn alt" id="playBtn">▶ Slideshow</button>
+    </div>
+  </section>
+
+  <!-- STEP 3: slideshow overlay -->
+  <div class="slideshow hidden" id="slideshow" role="dialog" aria-label="Photo slideshow">
+    <button class="ss-close" id="ssClose" aria-label="Close">✕</button>
+    <button class="ss-nav ss-prev" id="ssPrev" aria-label="Previous">‹</button>
+    <figure class="ss-frame">
+      <img id="ssImg" src="" alt="" />
+      <figcaption id="ssCap"></figcaption>
+    </figure>
+    <button class="ss-nav ss-next" id="ssNext" aria-label="Next">›</button>
+    <div class="ss-bar">
+      <button id="ssPlay" aria-label="Play or pause">❚❚</button>
+      <span id="ssCount"></span>
+    </div>
+  </div>
+
+  <!-- STEP 4: message with Yes / No -->
+  <div class="msg hidden" id="msg" role="dialog" aria-label="Birthday message">
+    <div class="paper">
+      <h2 id="msgTitle"></h2>
+      <p id="msgText"></p>
+      <p class="question" id="msgQuestion"></p>
+      <div class="answers" id="answers">
+        <button class="yes" id="yesBtn">Yes 💖</button>
+        <button class="no" id="noBtn">No</button>
+      </div>
+      <p class="reply" id="reply"></p>
+      <button class="close-msg" id="msgClose" aria-label="Close">✕</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
