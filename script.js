@@ -21,24 +21,15 @@ const LINA = {
   outro:  "Happy Birthday from Lina, with all her love 💖",
 items: [
   { type: "photo", src: "images/lina1.jpeg", caption: "One of my favorite humans 🤍" },
-
   { type: "video", src: "videos/lina1.mp4", caption: "How life sounds when you're around" },
-
   { type: "photo", src: "images/lina2.jpeg", caption: "Another memory with my favorite girl 🤍" },
-
   { type: "photo", src: "images/lina3.jpeg", caption: "And the memories keep coming " },
-
   { type: "video", src: "videos/lina2.mp4", caption: "Our laughs are always the loudest 😂" },
-
   { type: "photo", src: "images/lina4.jpeg", caption: "Just another moment to keep forever ❤️" },
-
   { type: "video", src: "videos/lina3.mp4", caption: "No one will ever understand what we're talking about 😂" },
-
   { type: "photo", src: "images/lina5.jpeg", caption: "Wouldn't trade these moments for anything 🤍" },
-
   { type: "video", src: "videos/lina4.mp4", caption: "And way too many TikToks made together 😭😂" }
 ]
-  
 };
 // =====================
 
@@ -200,17 +191,16 @@ function resetNo() {
   noBtn.style.left = noBtn.style.top = "";
   noBtn.style.transform = "";
   noBtn.style.display = "";
-  yesBtn.style.transform = "";
+  yesBtn.style.removeProperty("--grow");
   noTries = 0;
 }
-document.getElementById("msgBtn").addEventListener("click", openMsg);
 document.getElementById("msgClose").addEventListener("click", closeMsg);
 
 // the "No" button runs away, then shrinks; after a few tries it gives in
 function dodge(e) {
   e.preventDefault();
   noTries++;
-  if (noTries > 6) { replyEl.textContent = MESSAGE.noReply; noBtn.style.display = "none"; return; }
+  if (noTries > 12) { replyEl.textContent = MESSAGE.noReply; noBtn.style.display = "none"; return; }
   const r = noBtn.getBoundingClientRect();
   noBtn.classList.add("dodge");
   const x = Math.random() * (window.innerWidth  - r.width  - 20) + 10;
@@ -218,7 +208,7 @@ function dodge(e) {
   noBtn.style.left = x + "px";
   noBtn.style.top  = y + "px";
   noBtn.style.transform = "scale(" + Math.max(0.5, 1 - noTries * 0.08) + ")";
-  yesBtn.style.transform = "scale(" + (1 + noTries * 0.1) + ")";
+  yesBtn.style.setProperty("--grow", 1 + noTries * 0.1);   // Yes takes real space, the message grows with it
 }
 noBtn.addEventListener("mouseenter", dodge);
 noBtn.addEventListener("touchstart", dodge, { passive: false });
@@ -292,6 +282,7 @@ function closeLina() {
   scrap.querySelectorAll("video").forEach(v => v.pause());
   linaEl.classList.add("hidden");
   heart.classList.add("beat");
+  setTimeout(openMsg, 700);              // back from Lina's turn -> the message opens by itself
 }
 document.getElementById("linaBtn").addEventListener("click", openLina);
 document.getElementById("linaClose").addEventListener("click", closeLina);

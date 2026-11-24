@@ -249,7 +249,7 @@ html, body {
 
 /* ---------- MESSAGE ---------- */
 .msg {
-  position: fixed; inset: 0; z-index: 60;
+  position: fixed; inset: 0; z-index: 60; overflow-y: auto;
   display: flex; align-items: center; justify-content: center;
   background: rgba(10, 7, 18, .85);
   backdrop-filter: blur(10px);
@@ -261,6 +261,7 @@ html, body {
 .paper {
   position: relative;
   width: min(92vw, 460px);
+  margin: auto;
   padding: 34px 28px 28px;
   color: #3a2a2e;
   text-align: center;
@@ -279,11 +280,17 @@ html, body {
 .paper p  { margin: 0 0 14px; line-height: 1.6; font-size: 1.05rem; white-space: pre-line; }
 .paper .question { font-weight: 700; font-size: 1.2rem; margin-top: 18px; }
 
-.answers { display: flex; gap: 16px; justify-content: center; min-height: 56px; }
+.answers { display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; min-height: 56px; }
 .answers button {
   padding: 12px 28px; font-size: 1.05rem; border: 0; border-radius: 999px; cursor: pointer; color: #fff;
 }
-.yes { background: #e95f55; box-shadow: 0 8px 18px rgba(233,95,85,.45); transition: transform .3s; }
+.yes {
+  background: #e95f55; box-shadow: 0 8px 18px rgba(233,95,85,.45);
+  /* grows with --grow (set by JS) so the letter makes room instead of overlapping */
+  font-size: calc(1.05rem * var(--grow, 1)) !important;
+  padding: calc(12px * var(--grow, 1)) calc(28px * var(--grow, 1)) !important;
+  transition: font-size .3s, padding .3s, transform .3s;
+}
 .yes:hover { transform: scale(1.1); }
 .no  { background: #8a7f84; }
 .no.dodge { position: fixed; z-index: 70; transition: left .25s, top .25s; }
