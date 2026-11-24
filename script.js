@@ -126,10 +126,7 @@ function show(i) {
 }
 function play()  {
   pause();
-  timer = setInterval(() => {
-    if (idx >= slides.length - 1) { closeShow(); openLina(); }   // last photo done -> Lina's turn
-    else show(idx + 1);
-  }, SLIDE_SECONDS * 1000);
+  timer = setInterval(() => show(idx + 1), SLIDE_SECONDS * 1000);   // loops; Lina's turn only opens from her button
   ssPlay.textContent = "❚❚";
 }
 function pause() { clearInterval(timer); timer = null; ssPlay.textContent = "▶"; }
