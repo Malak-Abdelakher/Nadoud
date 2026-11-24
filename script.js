@@ -11,6 +11,35 @@ const MESSAGE = {
   yesReply: "Yaaay! I knew it! 🥳 Happy Birthday!",
   noReply:  "Nice try 😏 the answer is Yes!"
 };
+
+// ----- LINA'S TURN: edit / add / remove freely -----
+// type: "photo" or "video"  |  src: file path  |  caption: text under it
+const LINA = {
+  kicker: "and now…",
+  title:  "Lina's turn 💫",
+  intro:  "Lina has something special for you. Scroll down 👇",
+  outro:  "Happy Birthday from Lina, with all her love 💖",
+items: [
+  { type: "photo", src: "images/lina1.jpeg", caption: "One of my favorite humans 🤍" },
+
+  { type: "video", src: "videos/lina1.mp4", caption: "How life sounds when you're around" },
+
+  { type: "photo", src: "images/lina2.jpeg", caption: "Another memory with my favorite girl 🤍" },
+
+  { type: "photo", src: "images/lina3.jpeg", caption: "And the memories keep coming " },
+
+  { type: "video", src: "videos/lina2.mp4", caption: "Our laughs are always the loudest 😂" },
+
+  { type: "photo", src: "images/lina4.jpeg", caption: "Just another moment to keep forever ❤️" },
+
+  { type: "video", src: "videos/lina3.mp4", caption: "No one will ever understand what we're talking about 😂" },
+
+  { type: "photo", src: "images/lina5.jpeg", caption: "Wouldn't trade these moments for anything 🤍" },
+
+  { type: "video", src: "videos/lina4.mp4", caption: "And way too many TikToks made together 😭😂" }
+]
+  
+};
 // =====================
 
 const envelope = document.getElementById("envelope");
@@ -104,7 +133,14 @@ function show(i) {
     ssImg.classList.remove("fade");
   }, 250);
 }
-function play()  { pause(); timer = setInterval(() => show(idx + 1), SLIDE_SECONDS * 1000); ssPlay.textContent = "❚❚"; }
+function play()  {
+  pause();
+  timer = setInterval(() => {
+    if (idx >= slides.length - 1) { closeShow(); openLina(); }   // last photo done -> Lina's turn
+    else show(idx + 1);
+  }, SLIDE_SECONDS * 1000);
+  ssPlay.textContent = "❚❚";
+}
 function pause() { clearInterval(timer); timer = null; ssPlay.textContent = "▶"; }
 function openShow(i = 0) {
   heart.classList.remove("beat");
@@ -206,4 +242,60 @@ yesBtn.addEventListener("click", () => {
 });
 document.addEventListener("keydown", e => {
   if (e.key === "Escape" && !msg.classList.contains("hidden")) closeMsg();
+});
+
+/* ---------- Lina's turn ---------- */
+const linaEl     = document.getElementById("lina");
+const linaScroll = document.getElementById("linaScroll");
+const scrap      = document.getElementById("scrap");
+
+document.getElementById("linaKicker").textContent = LINA.kicker;
+document.getElementById("linaTitle").textContent  = LINA.title;
+document.getElementById("linaIntro").textContent  = LINA.intro;
+document.getElementById("linaOutro").textContent  = LINA.outro;
+
+LINA.items.forEach((it, i) => {
+  const fig = document.createElement("figure");
+  fig.className = "polaroid" + (it.type === "video" ? " is-video" : "");
+  fig.style.setProperty("--r", (i % 2 ? 1 : -1) * (1.5 + (i * 7) % 4));
+  let media;
+  if (it.type === "video") {
+    media = document.createElement("video");
+    media.src = it.src;
+    media.controls = true;
+    media.playsInline = true;
+    media.preload = "metadata";
+  } else {
+    media = document.createElement("img");
+    media.src = it.src;
+    media.alt = it.caption || "";
+    media.loading = "lazy";
+  }
+  const cap = document.createElement("figcaption");
+  cap.textContent = it.caption || "";
+  fig.append(media, cap);
+  scrap.appendChild(fig);
+});
+
+// items pop in as you scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+}, { root: linaScroll, threshold: 0.15 });
+scrap.querySelectorAll(".polaroid").forEach(p => io.observe(p));
+
+function openLina() {
+  heart.classList.remove("beat");
+  linaEl.classList.remove("hidden");
+  linaScroll.scrollTop = 0;
+}
+function closeLina() {
+  scrap.querySelectorAll("video").forEach(v => v.pause());
+  linaEl.classList.add("hidden");
+  heart.classList.add("beat");
+}
+document.getElementById("linaBtn").addEventListener("click", openLina);
+document.getElementById("linaClose").addEventListener("click", closeLina);
+document.getElementById("linaBack").addEventListener("click", closeLina);
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && !linaEl.classList.contains("hidden")) closeLina();
 });

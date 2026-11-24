@@ -49,6 +49,7 @@
     <div class="btn-row">
       <button class="play-btn" id="msgBtn">💌 Read my message</button>
       <button class="play-btn alt" id="playBtn">▶ Slideshow</button>
+      <button class="play-btn alt" id="linaBtn">✨ Lina's turn</button>
     </div>
   </section>
 
@@ -79,6 +80,23 @@
       </div>
       <p class="reply" id="reply"></p>
       <button class="close-msg" id="msgClose" aria-label="Close">✕</button>
+    </div>
+  </div>
+
+  <!-- STEP 5: Lina's turn (scrapbook of photos + videos) -->
+  <div class="lina hidden" id="lina" role="dialog" aria-label="Lina's turn">
+    <button class="lina-close" id="linaClose" aria-label="Close">✕</button>
+    <div class="lina-scroll" id="linaScroll">
+      <header class="lina-head">
+        <p class="lina-kicker" id="linaKicker"></p>
+        <h2 id="linaTitle"></h2>
+        <p id="linaIntro"></p>
+      </header>
+      <div class="scrap" id="scrap"></div>
+      <footer class="lina-foot">
+        <p id="linaOutro"></p>
+        <button class="play-btn" id="linaBack">💖 Back to the heart</button>
+      </footer>
     </div>
   </div>
 
